@@ -29,7 +29,7 @@ d3.json("../data/sample2.json", function (error, _graph) {
     let edgesData = []
     dataset.edges.forEach(function (edge) {
         let s = edge.source_id,
-            t = edge.target_id               
+            t = edge.target_id
         // let s = getByNodeId.get(edge.source_id),
         //     t = getByNodeId.get(edge.target_id)
         if (s !== t) {
@@ -68,15 +68,15 @@ forceProperties = {
     },
     charge: {
         enabled: true,
-        strength: -30,
-        distanceMin: 1,
-        distanceMax: 50
+        strength: -40,
+        distanceMin: 100,
+        distanceMax: 1000
     },
     collide: {
-        enabled: true,
-        strength: .7,
+        enabled: false,
+        strength: 0.3,
         iterations: 1,
-        radius: 5
+        radius: 12
     },
     forceX: {
         enabled: false,
@@ -146,36 +146,77 @@ function updateForces() {
 
 // generate the svg objects and force simulation
 function initializeDisplay() {
+    let r = forceProperties.collide.radius
+    // 在SVG中创建两个箭头标记
+    svg.append("defs")
+        .append("marker")
+        .attr("id", "arrow-end")
+        .attr("viewBox", "0 -3 6 6")
+        .attr("refX", r + 6)
+        .attr("refY", 0)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+        .attr("fill", "#aaa")
+        .append("path")
+        .attr("d", "M0,-3L6,0L0,3");
+
+    svg.append("defs")
+        .append("marker")
+        .attr("id", "arrow-start")
+        .attr("viewBox", "0 -3 6 6")
+        .attr("refX", -r / 2)
+        .attr("refY", 0)
+        .attr("markerWidth", 4)
+        .attr("markerHeight", 4)
+        .attr("orient", "auto")
+        .attr("fill", "blue")
+        .append("path")
+        .attr("d", "M6,-3L0,0L6,3");
+
     // set the data and properties of link lines
     link = svg.append("g")
         .attr("class", "links")
         .selectAll("line")
         .data(graph.links)
-        .enter().append("line");
+        .enter().append("line")
+        .attr("marker-start", d => d["link_style"] == 3 ? "url(#arrow-start)" : "none")
+        .attr("marker-end", "url(#arrow-end)");
 
     // set the data and properties of node circles
     node = svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
         .data(graph.nodes)
-        .enter().append("circle")
+        .enter()
+        .append("g")        
         .call(d3.drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended));
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+    
+    node.append("circle")
 
+    // 在节点上添加文本元素
+    node.append("text")
+        .attr("fill", "#fff")
+        .style('text-anchor', 'middle')
+        .style("dominant-baseline", "middle")
+        .style("font-size", "8px")
+        .text(d => d.as_name)
+    
     // node tooltip
     node.append("title")
-        .text(function (d) { return d.id; });
+        .text(function (d) { return d.as_id; });
     // visualize the graph
     updateDisplay();
 }
 
 // update the display based on the forces (but not positions)
 function updateDisplay() {
-    node
+    node.selectAll("circle")
         .attr("r", forceProperties.collide.radius)
-        .attr("stroke", forceProperties.charge.strength > 0 ? "blue" : "red")
+        .attr("stroke", forceProperties.charge.strength > 0 ? "black" : "white")
         .attr("stroke-width", forceProperties.charge.enabled == false ? 0 : Math.abs(forceProperties.charge.strength) / 15);
 
     link
@@ -192,8 +233,11 @@ function ticked() {
         .attr("y2", function (d) { return d.target.y; });
 
     node
-        .attr("cx", function (d) { return d.x; })
-        .attr("cy", function (d) { return d.y; });
+        .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+    // node
+    //     .attr("cx", function (d) { return d.x; })
+    //     .attr("cy", function (d) { return d.y; });    
     d3.select('#alpha_value').style('flex-basis', (simulation.alpha() * 100) + '%');
 }
 

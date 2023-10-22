@@ -21,7 +21,7 @@
         var force
         d3.json("/data/sample.json").then(data => {
             const w = 1000, h = 1000;
-            const r = 20
+            const r = 10
 
             let dataset = data
             let getByNodeId = new Map()
@@ -117,7 +117,7 @@
                 .enter()
                 .append("line")
                 .style("stroke", "blue")
-                .style("stroke-width", 3)
+                .style("stroke-width", 1)
                 .style("stroke-dasharray", d => d["link_style"] == 2 ? "5,5" : "none")
                 .attr("marker-start", d => d["link_style"] == 3 ? "url(#arrow-start)" : "none")
                 .attr("marker-end", "url(#arrow-end)")
@@ -144,7 +144,7 @@
                 .attr("fill", "#999")
                 .style('text-anchor', 'middle')
                 .style("dominant-baseline", "middle")
-                .style("font-size", "14px")
+                .style("font-size", "8px")
                 .text(d => d.as_name)
 
 
