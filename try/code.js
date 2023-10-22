@@ -10,7 +10,7 @@ var graph;
 
 // load the data
 // miserables.json
-d3.json("../data/sample2.json", function (error, _graph) {
+d3.json("../data/sample1.json", function (error, _graph) {
     if (error) throw error;
     graph = _graph;
     let dataset = graph
@@ -28,10 +28,10 @@ d3.json("../data/sample2.json", function (error, _graph) {
     // 将每个边对象转换为d3.js所需的格式            
     let edgesData = []
     dataset.edges.forEach(function (edge) {
-        let s = edge.source_id,
-            t = edge.target_id
-        // let s = getByNodeId.get(edge.source_id),
-        //     t = getByNodeId.get(edge.target_id)
+        // let s = edge.source_id,
+        //     t = edge.target_id
+        let s = getByNodeId.get(edge.source_id),
+            t = getByNodeId.get(edge.target_id)
         if (s !== t) {
             edgesData.push({
                 source: s,
@@ -68,9 +68,9 @@ forceProperties = {
     },
     charge: {
         enabled: true,
-        strength: -40,
+        strength: -800,
         distanceMin: 100,
-        distanceMax: 1000
+        distanceMax: 200
     },
     collide: {
         enabled: false,
@@ -79,12 +79,12 @@ forceProperties = {
         radius: 12
     },
     forceX: {
-        enabled: false,
+        enabled: true,
         strength: .1,
         x: .5
     },
     forceY: {
-        enabled: false,
+        enabled: true,
         strength: .1,
         y: .5
     },
@@ -216,8 +216,8 @@ function initializeDisplay() {
 function updateDisplay() {
     node.selectAll("circle")
         .attr("r", forceProperties.collide.radius)
-        .attr("stroke", forceProperties.charge.strength > 0 ? "black" : "white")
-        .attr("stroke-width", forceProperties.charge.enabled == false ? 0 : Math.abs(forceProperties.charge.strength) / 15);
+        // .attr("stroke", forceProperties.charge.strength > 0 ? "black" : "white")
+        // .attr("stroke-width", forceProperties.charge.enabled == false ? 0 : Math.abs(forceProperties.charge.strength) / 15);
 
     link
         .attr("stroke-width", forceProperties.link.enabled ? 1 : .5)
