@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>AS域力导引</title>
+    <script type="text/javascript" src="../d3.v5.min.js"></script>    
+    <style type="text/css">
+        .nodes {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="graph"></div>
+    </div>
+    <script>
+        //Original data
+        var force
+        d3.json("/data/sample.json").then(data => {
+            const w = 1000, h = 1000;
+            const r = 20
+
+            let dataset = data
+            let getByNodeId = new Map()
+            dataset.as_groups.forEach(as => {
+                if (as.nodes) {
+                    as.nodes.forEach(node => {
+                        getByNodeId.set(node.id, as.as_id)
+                    })
+                }
+            })
+
+            console.log(getByNodeId);
+
+            // 将每个边对象转换为d3.js所需的格式            
+            let edgesData = []
+            data.edges.forEach(function (edge) {
+                // let s = edge.source_id,
+                //     t = edge.target_id               
+                let s = getByNodeId.get(edge.source_id),
+                    t = getByNodeId.get(edge.target_id)
+                if (s !== t) {
+                    edgesData.push({
+                        source: s,
+                        target: t
+                    })
+                }
+            });
+
+            data.edges = edgesData
+            console.log(edgesData);
+
+            // nodeById = new Map(dataset.as_groups.map((d, i) => [d.as_id,
+            //     new Map(d.nodes.map((node, i) => [node.id, node]))
+            // ]))
+            force = d3.forceSimulation(dataset.as_groups)
+                .force("link", d3.forceLink(dataset.edges).id(d => d['as_id']))
+                .force("charge", d3.forceManyBody())
+                .force("collide", d3.forceCollide())
+                .force("x", d3.forceX())
+                .force("y", d3.forceY())
+                // .force("center", d3.forceCenter().x(w / 2).y(h / 3));
+
+
+            force.force("charge")
+                .strength(-1000)
+                .distanceMin(100)
+                .distanceMax(200);
+
+
+
+            //创建svg
+            // cosnt svg = d3.select(".graph")
+            //     .append("svg")
+            //     .attr("width", w)
+            //     .attr("height", h);
+            const svg = d3.select(".graph")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h)
+                .attr("viewBox", [-w / 2, -h / 2, w, h])
+                .attr("style", "max-width: 100%; height: auto;");
+
+            // 在SVG中创建两个箭头标记
+            svg.append("defs")
+                .append("marker")
+                .attr("id", "arrow-end")
+                .attr("viewBox", "0 -3 6 6")
+                .attr("refX", r / 2 + 6)
+                .attr("refY", 0)
+                .attr("markerWidth", 4)
+                .attr("markerHeight", 4)
+                .attr("orient", "auto")
+                .attr("fill", "blue")
+                .append("path")
+                .attr("d", "M0,-3L6,0L0,3");
+
+            svg.append("defs")
+                .append("marker")
+                .attr("id", "arrow-start")
+                .attr("viewBox", "0 -3 6 6")
+                .attr("refX", -r / 2)
+                .attr("refY", 0)
+                .attr("markerWidth", 4)
+                .attr("markerHeight", 4)
+                .attr("orient", "auto")
+                .attr("fill", "blue")
+                .append("path")
+                .attr("d", "M6,-3L0,0L6,3");
+
+            //创建连边（单实线1，单虚线2，双实线3）
+            let edges = svg.selectAll("line")
+                .data(dataset.edges)
+                .enter()
+                .append("line")
+                .style("stroke", "blue")
+                .style("stroke-width", 3)
+                .style("stroke-dasharray", d => d["link_style"] == 2 ? "5,5" : "none")
+                .attr("marker-start", d => d["link_style"] == 3 ? "url(#arrow-start)" : "none")
+                .attr("marker-end", "url(#arrow-end)")
+
+            //创建节点（AS域）
+            let nodes = svg.selectAll("circle")
+                .data(dataset.as_groups)
+                .enter()
+                .append("g")
+                .attr("class", "nodes")
+                .call(d3.drag()
+                    .on("start", dragStarted)
+                    .on("drag", dragging)
+                    .on("end", dragEnded));
+            nodes.append("circle")
+                .attr("r", r)
+                .attr("stroke", "black")
+                .attr("stroke-width", 1.5)
+                .style("fill", 'yellow')
+
+
+            // 在节点上添加文本元素
+            nodes.append("text")
+                .attr("fill", "#999")
+                .style('text-anchor', 'middle')
+                .style("dominant-baseline", "middle")
+                .style("font-size", "14px")
+                .text(d => d.as_name)
+
+
+            //力仿真
+            force.on("tick", function () {
+
+                edges.attr("x1", function (d) { return d.source.x; })
+                    .attr("y1", function (d) { return d.source.y; })
+                    .attr("x2", function (d) { return d.target.x; })
+                    .attr("y2", function (d) { return d.target.y; });
+
+                nodes.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+            });
+        })
+
+
+        //定义拖拽时的回调函数
+        function dragStarted(d) {
+            if (!d3.event.active) force.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragging(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+        }
+
+        function dragEnded(d) {
+            if (!d3.event.active) force.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+    </script>
+</body>
+
+</html>

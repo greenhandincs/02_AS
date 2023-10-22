@@ -1,0 +1,226 @@
+{
+  "as_groups": [
+    {
+      "as_id": "AS1",
+      "as_name": "AS1",
+      "nodes": []
+    },
+    {
+      "as_id": "AS2",
+      "as_name": "AS2",
+      "nodes": []
+    },
+    {
+      "as_id": "AS3",
+      "as_name": "AS3",
+      "nodes": []
+    },
+    {
+      "as_id": "AS4",
+      "as_name": "AS4",
+      "nodes": []
+    },
+    {
+      "as_id": "AS5",
+      "as_name": "AS5",
+      "nodes": []
+    },
+    {
+      "as_id": "AS6",
+      "as_name": "AS6",
+      "nodes": []
+    },
+    {
+      "as_id": "AS7",
+      "as_name": "AS7",
+      "nodes": []
+    },
+    {
+      "as_id": "AS8",
+      "as_name": "AS8",
+      "nodes": []
+    },
+    {
+      "as_id": "AS9",
+      "as_name": "AS9",
+      "nodes": []
+    },
+    {
+      "as_id": "AS10",
+      "as_name": "AS10",
+      "nodes": []
+    },
+    {
+      "as_id": "AS11",
+      "as_name": "AS11",
+      "nodes": []
+    },
+    {
+      "as_id": "AS12",
+      "as_name": "AS12",
+      "nodes": []
+    },
+    {
+      "as_id": "AS13",
+      "as_name": "AS13",
+      "nodes": []
+    },
+    {
+      "as_id": "AS14",
+      "as_name": "AS14",
+      "nodes": []
+    },
+    {
+      "as_id": "AS15",
+      "as_name": "AS15",
+      "nodes": []
+    },
+    {
+      "as_id": "AS16",
+      "as_name": "AS16",
+      "nodes": []
+    },
+    {
+      "as_id": "AS17",
+      "as_name": "AS17",
+      "nodes": []
+    },
+    {
+      "as_id": "AS18",
+      "as_name": "AS18",
+      "nodes": []
+    },
+    {
+      "as_id": "AS19",
+      "as_name": "AS19",
+      "nodes": []
+    },
+    {
+      "as_id": "AS20",
+      "as_name": "AS20",
+      "nodes": []
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "AS7",
+      "target_id": "AS1",
+      "link_style": 2,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS1",
+      "target_id": "AS2",
+      "link_style": 1,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS2",
+      "target_id": "AS3",
+      "link_style": 1,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS3",
+      "target_id": "AS4",
+      "link_style": 1,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS4",
+      "target_id": "AS5",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS5",
+      "target_id": "AS6",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS6",
+      "target_id": "AS7",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS7",
+      "target_id": "AS8",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS8",
+      "target_id": "AS9",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS9",
+      "target_id": "AS10",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS10",
+      "target_id": "AS11",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS11",
+      "target_id": "AS12",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS12",
+      "target_id": "AS13",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS13",
+      "target_id": "AS14",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS14",
+      "target_id": "AS15",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS15",
+      "target_id": "AS16",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS16",
+      "target_id": "AS17",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS17",
+      "target_id": "AS18",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS18",
+      "target_id": "AS19",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS19",
+      "target_id": "AS20",
+      "link_style": 3,
+      "level_code": 2
+    }
+  ]
+}

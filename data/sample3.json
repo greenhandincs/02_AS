@@ -1,0 +1,140 @@
+{
+  "as_groups": [
+    {
+      "as_id": "AS1",
+      "as_name": "AS1",
+      "nodes": []
+    },
+    {
+      "as_id": "AS2",
+      "as_name": "AS2",
+      "nodes": []
+    },
+    {
+      "as_id": "AS3",
+      "as_name": "AS3",
+      "nodes": []
+    },
+    {
+      "as_id": "AS4",
+      "as_name": "AS4",
+      "nodes": []
+    },
+    {
+      "as_id": "AS5",
+      "as_name": "AS5",
+      "nodes": []
+    },
+    {
+      "as_id": "AS6",
+      "as_name": "AS6",
+      "nodes": []
+    },
+    {
+      "as_id": "AS7",
+      "as_name": "AS7",
+      "nodes": []
+    },
+    {
+      "as_id": "AS8",
+      "as_name": "AS8",
+      "nodes": []
+    },
+    {
+      "as_id": "AS9",
+      "as_name": "AS9",
+      "nodes": []
+    },
+    {
+      "as_id": "AS10",
+      "as_name": "AS10",
+      "nodes": []
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "AS7",
+      "target_id": "AS1",
+      "link_style": 1,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS1",
+      "target_id": "AS2",
+      "link_style": 1,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS1",
+      "target_id": "AS3",
+      "link_style": 1,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS1",
+      "target_id": "AS4",
+      "link_style": 1,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS1",
+      "target_id": "AS5",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS5",
+      "target_id": "AS6",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS6",
+      "target_id": "AS7",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS7",
+      "target_id": "AS2",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS2",
+      "target_id": "AS10",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS9",
+      "target_id": "AS10",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS10",
+      "target_id": "AS6",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS6",
+      "target_id": "AS9",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS3",
+      "target_id": "AS4",
+      "link_style": 3,
+      "level_code": 2
+    },
+    {
+      "source_id": "AS1",
+      "target_id": "AS8",
+      "link_style": 3,
+      "level_code": 2
+    }
+  ]
+}

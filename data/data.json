@@ -1,0 +1,16 @@
+{
+    "as_groups": [
+        {
+            "as_id": "xxx-23r2"
+        },
+        {
+            "as_id": "xxx-s2345fds"
+        }
+    ],
+    "edges": [
+        {
+            "source_id":"xxx-23r2",
+            "target_id":"xxx-s2345fds"
+        }
+    ]
+}

@@ -1,0 +1,89 @@
+{
+  "as_groups": [
+    {
+      "as_id": "xxx-23r2",
+      "as_name": "AS1",
+      "nodes": [
+        {
+          "id": "434061762449485",
+          "node_class": 1,
+          "level_code": 1
+        },
+        {
+          "id": "434061762441298",
+          "node_class": 2,
+          "level_code": 1
+        },
+        {
+          "id": "2139423723423",
+          "node_class": 3,
+          "level_code": 2
+        }
+      ]
+    },
+    {
+      "as_id": "xxx-s2345fds",
+      "as_name": "AS2",
+      "nodes": [
+        {
+          "id": "434061762457675",
+          "node_class": 1,
+          "level_code": 2
+        },
+        {
+          "id": "434061762445390",
+          "node_class": 2,
+          "level_code": 2
+        },
+        {
+          "id": "2000-1",
+          "node_class": 3,
+          "level_code": 1
+        },
+        {
+          "id": "2000-2",
+          "node_class": 3,
+          "level_code": 2
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "434061762449485",
+      "target_id": "434061762441298",
+      "link_style": 1,
+      "level_code": 2
+    },
+    {
+      "source_id": "2139423723423",
+      "target_id": "434061762449485",
+      "link_style": 1,
+      "level_code": 1
+    },
+    {
+      "source_id": "434061762449485",
+      "target_id": "434061762457675",
+      "link_style": 1,
+      "level_code": 1
+    },
+    {
+      "source_id": "434061762449485",
+      "target_id": "434061762445390",
+      "link_style": 1,
+      "level_code": 1
+    },
+    {
+      "source_id": "434061762457675",
+      "target_id": "2000-1",
+      "link_style": 1,
+      "level_code": 1
+    },
+    {
+      "source_id": "434061762445390",
+      "target_id": "2000-2",
+      "link_style": 1,
+      "level_code": 1
+    }
+  ]
+}
