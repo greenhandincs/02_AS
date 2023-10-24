@@ -1,152 +1,156 @@
 <html>
+
 <head>
-<style>
-/* HTML styles */
-html{ width: 100%; }
-body{ 
-  width: 100%; 
-  margin: 0; padding: 0; 
-  display: flex; 
-  font-family: sans-serif; font-size: 75%; }
-.controls {
-  flex-basis: 200px;
-  padding: 0 5px;
-}
-.controls .force {
-  background-color:#eee;
-  border-radius: 3px;
-  padding: 5px;
-  margin: 5px 0;
-}
-.controls .force p label { margin-right: .5em; font-size: 120%; font-weight: bold;}
-.controls .force p { margin-top: 0;}
-.controls .force label { display: inline-block; }
-.controls input[type="checkbox"] { transform: scale(1.2, 1.2); }
-.controls input[type="range"] { margin: 0 5% 0.5em 5%; width: 90%; }
-/* alpha viewer */
-.controls .alpha p { margin-bottom: .25em; }
-.controls .alpha .alpha_bar { height: .5em; border: 1px #777 solid; border-radius: 2px; padding: 1px; display: flex; }
-.controls .alpha .alpha_bar #alpha_value { background-color: #555; border-radius: 1px; flex-basis: 100% }
-.controls .alpha .alpha_bar:hover { border-width: 2px; margin:-1px; }
-.controls .alpha .alpha_bar:active #alpha_value { background-color: #222 }
+  <meta charset="UTF-8">
+  <style>
+    /* HTML styles */
+    html {
+      width: 100%;
+    }
 
-/* SVG styles */
-svg {
-  flex-basis: 100%;
-  min-width: 200px;
-}
-.links line {
-  stroke: #aaa;
-}
-.nodes circle {
-  pointer-events: all;
-  fill: #9467bd;
-}
+    body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      font-family: sans-serif;
+      /* font-size: 75%; */
+    }
 
-</style>
+    /* SVG styles */
+    svg {
+      flex-basis: 100%;
+      min-width: 200px;
+    }
+
+    .links line {
+      stroke: #aaa;
+      stroke-width: 0.5px;
+    }
+
+    .nodes {
+      cursor: pointer;
+    }
+
+    .nodes text {
+      fill:#6C8EBF
+      /* fill:#D6B656 */
+    }
+    .nodes circle {
+      pointer-events: all;
+      /* fill: #FFF2CC;
+      stroke: #D6B656;
+      fill: #F8CECC ;
+      stroke: #B85450; */
+      stroke-width: .5px;
+      fill: #DAE8FC;
+      stroke: #6C8EBF;     
+    }
+
+    .selected circle {
+      stroke: blue !important;
+      /* stroke: rgb(113,142,188) !important; */
+      stroke-width: 2px !important;
+      /* fill: rgb(102, 161, 233) !important; */
+      /* fill: rgb(28, 111, 244) !important; */
+      /* color: #9467bd; */
+      /* dec2f7 */
+
+    }
+
+    .selected text {
+      /* stroke: blue !important; */
+      /* stroke-width: 2px !important; */
+      /* fill: orange !important; */
+      /* fill: rgb(28, 111, 244) !important; */
+      /* color: #9467bd; */
+      /* dec2f7 */
+
+    }
+
+    #graph {
+      /* min-width: 50%;       */
+      min-width: 80%;
+    }
+
+    #info {
+      display: inline-block;
+      width: 18%;
+      /* box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);; */
+    }
+
+    #info h3 {
+      color: #9467bd;
+    }
+
+    .info-entry .label {
+      /* font-size: 12px; */
+      font-weight: 500;
+      color: #aaa;
+    }
+
+    .info-entry {
+      margin-top: 5px;
+      font-size: 16px
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .link-highlight {
+      opacity: 1;
+      stroke: #9467bd !important;
+    }
+
+    .link-blur {
+      opacity: 0.1 !important;
+      stroke: #aaa;
+    }
+
+    svg {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  </style>
 </head>
+
 <body>
-<div class="controls">
-  <div class="force alpha">
-    <p><label>alpha</label> Simulation activity</p>
-    <div class="alpha_bar" onclick="updateAll();"><div id="alpha_value"></div></div>
-  </div>
-  <div class="force">
-    <p><label>center</label> Shifts the view, so the graph is centered at this location.</p>
-    <label>
-      x
-      <output id="center_XSliderOutput">.5</output>
-      <input type="range" min="0" max="1" value=".5" step="0.01" oninput="d3.select('#center_XSliderOutput').text(value); forceProperties.center.x=value; updateAll();">
-    </label>
-    <label>
-      y
-      <output id="center_YSliderOutput">.5</output>
-      <input type="range" min="0" max="1" value=".5" step="0.01" oninput="d3.select('#center_YSliderOutput').text(value); forceProperties.center.y=value; updateAll();">
-    </label>
+  <div style="width: 100%;  display: flex;  justify-content: center;">
+    <!-- <svg width="800" height="560" style="margin-right:80px;margin-bottom:-40px;" id="svg1">
+    </svg> -->
+    <div id="graph">
+      <svg width="100%" height="800"></svg>
+    </div>
+
+    <!-- 绘制右边显示结果 -->
+    <div id="info" style="margin-top: 10%;">
+      <div id="show" class="hidden">
+        <h3>AS1</h3>
+        <div class="info-entry">
+          <span class="label">ID: </span>
+          <span class="value" id="asId">xxx_akjlak</span>
+        </div>
+        <div class="info-entry">
+          <span class="label">内部节点个数: </span>
+          <span class="value" id="innerNodes">25</span>
+        </div>
+        <div class="info-entry">
+          <span class="label">入度: </span>
+          <span class="value" id="inDegree">5</span>
+        </div>
+        <div class="info-entry">
+          <span class="label">出度: </span>
+          <span class="value" id="outDegree">10</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="force">
-    <p><label><input type="checkbox" checked onchange="forceProperties.charge.enabled = this.checked; updateAll();"> charge</label> Attracts (+) or repels (-) nodes to/from each other.</p>
-    <label title="Negative strength repels nodes. Positive strength attracts nodes.">
-      strength
-      <output id="charge_StrengthSliderOutput">-30</output>
-      <input type="range" min="-200" max="50" value="-30" step=".1" oninput="d3.select('#charge_StrengthSliderOutput').text(value); forceProperties.charge.strength=value; updateAll();">
-    </label>
-    <label title="Minimum distance where force is applied">
-      distanceMin
-      <output id="charge_distanceMinSliderOutput">1</output>
-      <input type="range" min="0" max="50" value="1" step=".1" oninput="d3.select('#charge_distanceMinSliderOutput').text(value); forceProperties.charge.distanceMin=value; updateAll();">
-    </label>
-    <label title="Maximum distance where force is applied">
-      distanceMax
-      <output id="charge_distanceMaxSliderOutput">2000</output>
-      <input type="range" min="0" max="2000" value="2000" step=".1" oninput="d3.select('#charge_distanceMaxSliderOutput').text(value); forceProperties.charge.distanceMax=value; updateAll();">
-    </label>
-  </div>
 
-  <div class="force">
-    <p><label><input type="checkbox" checked onchange="forceProperties.collide.enabled = this.checked; updateAll();"> collide</label> Prevents nodes from overlapping</p>
-    <label>
-      strength
-      <output id="collide_StrengthSliderOutput">.7</output>
-      <input type="range" min="0" max="2" value=".7" step=".1" oninput="d3.select('#collide_StrengthSliderOutput').text(value); forceProperties.collide.strength=value; updateAll();">
-    </label>
-    <label title="Size of nodes">
-      radius
-      <output id="collide_radiusSliderOutput">5</output>
-      <input type="range" min="0" max="100" value="5" step="1" oninput="d3.select('#collide_radiusSliderOutput').text(value); forceProperties.collide.radius=value; updateAll();">
-    </label>
-    <label title="Higher values increase rigidity of the nodes (WARNING: high values are computationally expensive)">
-      iterations
-      <output id="collide_iterationsSliderOutput">1</output>
-      <input type="range" min="1" max="10" value="1" step="1" oninput="d3.select('#collide_iterationsSliderOutput').text(value); forceProperties.collide.iterations=value; updateAll();">
-    </label>
-  </div>
-
-  <div class="force">
-    <p><label><input type="checkbox" onchange="forceProperties.forceX.enabled = this.checked; updateAll();"> forceX</label> Acts like gravity. Pulls all points towards an X location.</p>
-    <label>
-      strength
-      <output id="forceX_StrengthSliderOutput">.1</output>
-      <input type="range" min="0" max="1" value=".1" step="0.01" oninput="d3.select('#forceX_StrengthSliderOutput').text(value); forceProperties.forceX.strength=value; updateAll();">
-    </label>
-    <label title="The X location that the force will push the nodes to (NOTE: This demo multiplies by the svg width)">
-      x
-      <output id="forceX_XSliderOutput">.5</output>
-      <input type="range" min="0" max="1" value=".5" step="0.01" oninput="d3.select('#forceX_XSliderOutput').text(value); forceProperties.forceX.x=value; updateAll();">
-    </label>
-  </div>
-
-  <div class="force">
-    <p><label><input type="checkbox" onchange="forceProperties.forceY.enabled = this.checked; updateAll();"> forceY</label> Acts like gravity. Pulls all points towards a Y location.</p>
-    <label>
-      strength
-      <output id="forceY_StrengthSliderOutput">.1</output>
-      <input type="range" min="0" max="1" value=".1" step="0.01" oninput="d3.select('#forceY_StrengthSliderOutput').text(value); forceProperties.forceY.strength=value; updateAll();">
-    </label>
-    <label title="The Y location that the force will push the nodes to (NOTE: This demo multiplies by the svg height)">
-      y
-      <output id="forceY_YSliderOutput">.5</output>
-      <input type="range" min="0" max="1" value=".5" step="0.01" oninput="d3.select('#forceY_YSliderOutput').text(value); forceProperties.forceY.y=value; updateAll();">
-    </label>
-  </div>
-
-  <div class="force">
-    <p><label><input type="checkbox" checked onchange="forceProperties.link.enabled = this.checked; updateAll();"> link</label> Sets link length</p>
-    <label title="The force will push/pull nodes to make links this long">
-      distance
-      <output id="link_DistanceSliderOutput">30</output>
-      <input type="range" min="0" max="100" value="30" step="1" oninput="d3.select('#link_DistanceSliderOutput').text(value); forceProperties.link.distance=value; updateAll();">
-    </label>
-    <label title="Higher values increase rigidity of the links (WARNING: high values are computationally expensive)">
-      iterations
-      <output id="link_IterationsSliderOutput">1</output>
-      <input type="range" min="1" max="10" value="1" step="1" oninput="d3.select('#link_IterationsSliderOutput').text(value); forceProperties.link.iterations=value; updateAll();">
-    </label>
-  </div>
-</div>
-<svg></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="code.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="code.js"></script>
 </body>
+
 </html>

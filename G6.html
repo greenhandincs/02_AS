@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习G6</title>
+    <script src="./lib/g6.min.js"></script>
+    <style>
+        /* 提示框的样式 */
+        .g6-tooltip {
+            border: 1px solid #e2e2e2;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #545454;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 8px;
+            box-shadow: rgb(174, 174, 174) 0px 0px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mountNode"></div>
+    <script>
+        var dataset
+        // 获取json数据，预处理
+        fetch('./data/sample2.json')
+            .then(response => response.json())
+            .then(data => {
+                let getByNodeId = new Map()
+                data.as_groups.forEach(as => {
+                    as.id = as.as_id
+                    as.label = as.as_name
+                    delete as.as_id
+                    delete as.as_name
+                    if (as.nodes) {
+                        as.nodes.forEach(node => {
+                            getByNodeId.set(node.id, as.id)
+                        })
+                    }
+                })
+
+                // 将每个边对象转换为G6所需的格式            
+                let edgesData = []
+                data.edges.forEach(function (edge) {
+                    let s = edge.source_id,
+                        t = edge.target_id
+                    // let s = getByNodeId.get(edge.source_id),
+                    //     t = getByNodeId.get(edge.target_id)
+                    if (s !== t) {
+                        edgesData.push({
+                            source: s,
+                            target: t
+                        })
+                    }
+                });
+                data.nodes = data.as_groups
+                data.edges = edgesData
+                dataset = data            
+                console.log(dataset);
+                initializeDisplay();
+                // initializeSimulation();
+            })
+            .catch(error => console.error('Error:', error));
+
+
+        // const data = {
+        //     // 点集
+        //     nodes: [
+        //         {
+        //             id: 'node1', // String，该节点存在则必须，节点的唯一标识
+        //             x: 100, // Number，可选，节点位置的 x 值
+        //             y: 200, // Number，可选，节点位置的 y 值
+        //             label: 'node1',
+        //         },
+        //         {
+        //             id: 'node2', // String，该节点存在则必须，节点的唯一标识
+        //             x: 300, // Number，可选，节点位置的 x 值
+        //             y: 200, // Number，可选，节点位置的 y 值
+        //             label: 'node2',
+        //         },
+        //     ],
+        //     // 边集
+        //     edges: [
+        //         {
+        //             source: 'node1', // String，必须，起始点 id
+        //             target: 'node2', // String，必须，目标点 id
+        //             label: 'link',
+        //         },
+        //     ],
+        // };
+        function initializeDisplay() {
+            const graph = new G6.Graph({
+                container: 'mountNode', // String | HTMLElement，必须，在 Step 1 中创建的容器 id 或容器本身
+                width: 1000, // Number，必须，图的宽度
+                height: 1000, // Number，必须，图的高度
+                layout: {
+                    // Object，可选，布局的方法及其配置项，默认为 random 布局。
+                    type: 'fruchterman', // 指定为力导向布局
+                    preventOverlap: true, // 防止节点重叠
+                    // linkDistance: 20, // 指定边距离为100
+                    gravity: 20,
+                    gpuEnabled: true,
+                    nodeStrength: 10
+                },
+                modes: {
+                    default: ['drag-canvas', 'drag-node',
+                        {
+                            type: 'tooltip', // 提示框
+                            formatText(model) {
+                                // 提示框文本内容
+                                const text = 'label: ' + model.label + '<br/> class: ' + model.class;
+                                return text;
+                            }
+                        }
+                    ], // 允许拖拽画布、放缩画布、拖拽节点
+                },
+                // 节点不同状态下的样式集合
+                nodeStateStyles: {
+                    // 鼠标 hover 上节点，即 hover 状态为 true 时的样式
+                    hover: {
+                        fill: 'lightsteelblue',
+                    },
+                    // 鼠标点击节点，即 click 状态为 true 时的样式
+                    click: {
+                        stroke: '#000',
+                        lineWidth: 3,
+                    },
+                },
+                // 边不同状态下的样式集合
+                edgeStateStyles: {
+                    // 鼠标点击边，即 click 状态为 true 时的样式
+                    click: {
+                        stroke: 'steelblue',
+                    },
+                },
+                defaultNode: {
+                    size: 30, // 节点大小
+                    // ...                 // 节点的其他配置
+                    // 节点样式配置
+                    style: {
+                        fill: 'steelblue', // 节点填充色
+                        stroke: '#666', // 节点描边色
+                        lineWidth: 1, // 节点描边粗细
+                    },
+                    // 节点上的标签文本配置
+                    labelCfg: {
+                        // 节点上的标签文本样式配置
+                        style: {
+                            fill: '#fff', // 节点标签文字颜色
+                        },
+                    },
+                },
+                // 边在默认状态下的样式配置（style）和其他配置
+                defaultEdge: {
+                    type: 'line',
+                    // 边样式配置
+                    style: {
+                        lineWidth: 3,
+                        opacity: 0.6, // 边透明度
+                        stroke: 'grey', // 边描边颜色
+                        endArrow: {
+                            path: G6.Arrow.vee(1, 1, 0), // 内置箭头，参数为箭头宽度、长度、偏移量 d（默认为 0）
+                            // d: 3 // 偏移量
+                        }
+                    },
+                    // 边上的标签文本配置
+                    labelCfg: {
+                        autoRotate: true, // 边上的标签文本根据边的方向旋转
+                    },
+                },
+            });
+            // 点击节点
+            graph.on('node:click', (e) => {
+                // 先将所有当前是 click 状态的节点置为非 click 状态
+                const clickNodes = graph.findAllByState('node', 'click');
+                clickNodes.forEach((cn) => {
+                    graph.setItemState(cn, 'click', false);
+                });
+                const nodeItem = e.item; // 获取被点击的节点元素对象
+                graph.setItemState(nodeItem, 'click', true); // 设置当前节点的 click 状态为 true
+            });
+            graph.data(dataset); // 读取 Step 2 中的数据源到图上
+            graph.render(); // 渲染图
+        }
+
+    </script>
+</body>
+
+</html>

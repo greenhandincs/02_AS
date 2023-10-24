@@ -1,0 +1,391 @@
+{
+    "as_groups": [
+        {
+            "as_id": "ade-013e",
+            "as_name": "AS13",
+            "nodes": [
+                {
+                    "id": "0039690007",
+                    "node_class": 2,
+                    "level_code": 1
+                },
+                {
+                    "id": "0257144626",
+                    "node_class": 2,
+                    "level_code": 2
+                },
+                {
+                    "id": "0461435465",
+                    "node_class": 1,
+                    "level_code": 1
+                },
+                {
+                    "id": "0782708602",
+                    "node_class": 2,
+                    "level_code": 1
+                }
+            ]
+        },
+        {
+            "as_id": "adf-8fc5",
+            "as_name": "AS1",
+            "nodes": [
+                {
+                    "id": "1350366698",
+                    "node_class": 2,
+                    "level_code": 3
+                },
+                {
+                    "id": "2257095761",
+                    "node_class": 2,
+                    "level_code": 3
+                }
+            ]
+        },
+        {
+            "as_id": "bdc-92b9",
+            "as_name": "AS19",
+            "nodes": [
+                {
+                    "id": "2623243857",
+                    "node_class": 3,
+                    "level_code": 1
+                },
+                {
+                    "id": "2684387888",
+                    "node_class": 3,
+                    "level_code": 2
+                },
+                {
+                    "id": "3265451404",
+                    "node_class": 3,
+                    "level_code": 1
+                }
+            ]
+        },
+        {
+            "as_id": "bef-3504",
+            "as_name": "AS14",
+            "nodes": [
+                {
+                    "id": "3405769414",
+                    "node_class": 2,
+                    "level_code": 1
+                }
+            ]
+        },
+        {
+            "as_id": "cdc-4075",
+            "as_name": "AS6",
+            "nodes": []
+        },
+        {
+            "as_id": "cdf-7459",
+            "as_name": "AS5",
+            "nodes": [
+                {
+                    "id": "3487581289",
+                    "node_class": 2,
+                    "level_code": 2
+                },
+                {
+                    "id": "4897656182",
+                    "node_class": 2,
+                    "level_code": 2
+                }
+            ]
+        },
+        {
+            "as_id": "ced-1a21",
+            "as_name": "AS7",
+            "nodes": [
+                {
+                    "id": "5260951648",
+                    "node_class": 3,
+                    "level_code": 3
+                },
+                {
+                    "id": "6166496726",
+                    "node_class": 2,
+                    "level_code": 1
+                }
+            ]
+        },
+        {
+            "as_id": "cee-5060",
+            "as_name": "AS11",
+            "nodes": [
+                {
+                    "id": "6197661423",
+                    "node_class": 2,
+                    "level_code": 2
+                },
+                {
+                    "id": "6204656084",
+                    "node_class": 2,
+                    "level_code": 1
+                }
+            ]
+        },
+        {
+            "as_id": "dad-63b0",
+            "as_name": "AS16",
+            "nodes": [
+                {
+                    "id": "7002113324",
+                    "node_class": 1,
+                    "level_code": 1
+                }
+            ]
+        },
+        {
+            "as_id": "dda-d29e",
+            "as_name": "AS18",
+            "nodes": [
+                {
+                    "id": "7322072576",
+                    "node_class": 2,
+                    "level_code": 1
+                },
+                {
+                    "id": "9139136405",
+                    "node_class": 3,
+                    "level_code": 2
+                },
+                {
+                    "id": "9400053375",
+                    "node_class": 1,
+                    "level_code": 1
+                }
+            ]
+        },
+        {
+            "as_id": "dde-1de9",
+            "as_name": "AS8",
+            "nodes": []
+        },
+        {
+            "as_id": "dde-e210",
+            "as_name": "AS2",
+            "nodes": []
+        },
+        {
+            "as_id": "ddf-e28a",
+            "as_name": "AS17",
+            "nodes": []
+        },
+        {
+            "as_id": "ecf-b959",
+            "as_name": "AS12",
+            "nodes": []
+        },
+        {
+            "as_id": "eda-9991",
+            "as_name": "AS4",
+            "nodes": []
+        },
+        {
+            "as_id": "edc-9e8b",
+            "as_name": "AS20",
+            "nodes": []
+        },
+        {
+            "as_id": "eea-90b9",
+            "as_name": "AS10"
+        },
+        {
+            "as_id": "fed-2a70",
+            "as_name": "AS15"
+        },
+        {
+            "as_id": "fee-3020",
+            "as_name": "AS3"
+        },
+        {
+            "as_id": "ffe-fd92",
+            "as_name": "AS9"
+        }
+    ],
+    "edges": [
+        {
+            "source_id": "0782708602",
+            "target_id": "0782708602",
+            "link_style": 2,
+            "level_code": 2
+        },
+        {
+            "source_id": "7322072576",
+            "target_id": "7322072576",
+            "link_style": 1,
+            "level_code": 2
+        },
+        {
+            "source_id": "6204656084",
+            "target_id": "6204656084",
+            "link_style": 1,
+            "level_code": 2
+        },
+        {
+            "source_id": "9400053375",
+            "target_id": "0782708602",
+            "link_style": 3,
+            "level_code": 2
+        },
+        {
+            "source_id": "1350366698",
+            "target_id": "7322072576",
+            "link_style": 2,
+            "level_code": 2
+        },
+        {
+            "source_id": "2684387888",
+            "target_id": "7322072576",
+            "link_style": 3,
+            "level_code": 3
+        },
+        {
+            "source_id": "6197661423",
+            "target_id": "1350366698",
+            "link_style": 3,
+            "level_code": 2
+        },
+        {
+            "source_id": "2623243857",
+            "target_id": "2623243857",
+            "link_style": 3,
+            "level_code": 2
+        },
+        {
+            "source_id": "9139136405",
+            "target_id": "6166496726",
+            "link_style": 3,
+            "level_code": 1
+        },
+        {
+            "source_id": "5260951648",
+            "target_id": "0782708602",
+            "link_style": 2,
+            "level_code": 1
+        },
+        {
+            "source_id": "3405769414",
+            "target_id": "1350366698",
+            "link_style": 1,
+            "level_code": 1
+        },
+        {
+            "source_id": "2257095761",
+            "target_id": "6166496726",
+            "link_style": 2,
+            "level_code": 3
+        },
+        {
+            "source_id": "6166496726",
+            "target_id": "2257095761",
+            "link_style": 2,
+            "level_code": 3
+        },
+        {
+            "source_id": "0461435465",
+            "target_id": "0039690007",
+            "link_style": 2,
+            "level_code": 1
+        },
+        {
+            "source_id": "7002113324",
+            "target_id": "3487581289",
+            "link_style": 2,
+            "level_code": 2
+        },
+        {
+            "source_id": "4897656182",
+            "target_id": "0782708602",
+            "link_style": 1,
+            "level_code": 2
+        },
+        {
+            "source_id": "3487581289",
+            "target_id": "7002113324",
+            "link_style": 1,
+            "level_code": 2
+        },
+        {
+            "source_id": "0257144626",
+            "target_id": "3487581289",
+            "link_style": 3,
+            "level_code": 1
+        },
+        {
+            "source_id": "0039690007",
+            "target_id": "4897656182",
+            "link_style": 3,
+            "level_code": 3
+        },
+        {
+            "source_id": "3265451404",
+            "target_id": "7322072576",
+            "link_style": 2,
+            "level_code": 1
+        },
+        {
+            "source_id": "3265451404",
+            "target_id": "4897656182",
+            "link_style": 2,
+            "level_code": 2
+        },
+        {
+            "source_id": "1350366698",
+            "target_id": "4897656182",
+            "link_style": 2,
+            "level_code": 2
+        },
+        {
+            "source_id": "3487581289",
+            "target_id": "2257095761",
+            "link_style": 2,
+            "level_code": 2
+        },
+        {
+            "source_id": "3405769414",
+            "target_id": "0039690007",
+            "link_style": 1,
+            "level_code": 1
+        },
+        {
+            "source_id": "7002113324",
+            "target_id": "7002113324",
+            "link_style": 1,
+            "level_code": 2
+        },
+        {
+            "source_id": "6197661423",
+            "target_id": "6197661423",
+            "link_style": 2,
+            "level_code": 2
+        },
+        {
+            "source_id": "7002113324",
+            "target_id": "4897656182",
+            "link_style": 2,
+            "level_code": 1
+        },
+        {
+            "source_id": "0782708602",
+            "target_id": "1350366698",
+            "link_style": 3,
+            "level_code": 2
+        },
+        {
+            "source_id": "4897656182",
+            "target_id": "1350366698",
+            "link_style": 2,
+            "level_code": 2
+        },
+        {
+            "source_id": "0257144626",
+            "target_id": "4897656182",
+            "link_style": 2,
+            "level_code": 2
+        }
+    ]
+}

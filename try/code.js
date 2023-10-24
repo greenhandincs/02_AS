@@ -7,10 +7,11 @@ var svg = d3.select("svg"),
 var link, node;
 // the data - an object with nodes and links
 var graph;
+var hasLink = new Set();
 
 // load the data
 // miserables.json
-d3.json("../data/sample1.json", function (error, _graph) {
+d3.json("../data/sample6.json", function (error, _graph) {
     if (error) throw error;
     graph = _graph;
     let dataset = graph
@@ -26,17 +27,22 @@ d3.json("../data/sample1.json", function (error, _graph) {
     console.log(getByNodeId);
 
     // 将每个边对象转换为d3.js所需的格式            
-    let edgesData = []
+    let edgesData = [];
     dataset.edges.forEach(function (edge) {
         // let s = edge.source_id,
         //     t = edge.target_id
-        let s = getByNodeId.get(edge.source_id),
-            t = getByNodeId.get(edge.target_id)
-        if (s !== t) {
-            edgesData.push({
-                source: s,
-                target: t
-            })
+        let s = getByNodeId.get(edge.source),
+            t = getByNodeId.get(edge.target)
+        let key = s + "," + t
+        if (!hasLink.has(key)) {
+            if (s !== t) {
+                edgesData.push({
+                    source: s,
+                    target: t
+                })
+            }
+
+            hasLink.add(key)
         }
     });
     graph.nodes = graph.as_groups
@@ -68,15 +74,15 @@ forceProperties = {
     },
     charge: {
         enabled: true,
-        strength: -800,
+        strength: -100,
         distanceMin: 100,
         distanceMax: 200
     },
     collide: {
-        enabled: false,
-        strength: 0.3,
+        enabled: true,
+        strength: 0.2,
         iterations: 1,
-        radius: 12
+        radius: 8
     },
     forceX: {
         enabled: true,
@@ -90,7 +96,7 @@ forceProperties = {
     },
     link: {
         enabled: true,
-        distance: 30,
+        distance: 40,
         iterations: 1
     }
 }
@@ -105,6 +111,8 @@ function initializeForces() {
         .force("center", d3.forceCenter())
         .force("forceX", d3.forceX())
         .force("forceY", d3.forceY());
+    simulation.alpha(0.7)
+    simulation.velocityDecay(0.6);
     // apply properties to each of the forces
     updateForces();
 }
@@ -123,21 +131,21 @@ function updateForces() {
         .strength(forceProperties.collide.strength * forceProperties.collide.enabled)
         .radius(forceProperties.collide.radius)
         .iterations(forceProperties.collide.iterations);
-    simulation.force("forceX")
-        .strength(forceProperties.forceX.strength * forceProperties.forceX.enabled)
-        .x(width * forceProperties.forceX.x);
-    simulation.force("forceY")
-        .strength(forceProperties.forceY.strength * forceProperties.forceY.enabled)
-        .y(height * forceProperties.forceY.y);
+    // simulation.force("forceX")
+    //     .strength(forceProperties.forceX.strength * forceProperties.forceX.enabled)
+    //     .x(width * forceProperties.forceX.x);
+    // simulation.force("forceY")
+    //     .strength(forceProperties.forceY.strength * forceProperties.forceY.enabled)
+    //     .y(height * forceProperties.forceY.y);
     simulation.force("link")
         .id(function (d) { return d.as_id; })
-        .distance(forceProperties.link.distance)
+        // .distance(forceProperties.link.distance)
         .iterations(forceProperties.link.iterations)
         .links(forceProperties.link.enabled ? graph.links : []);
 
     // updates ignored until this is run
     // restarts the simulation (important if simulation has already slowed down)
-    simulation.alpha(1).restart();
+    // simulation.alpha(1).restart();
 }
 
 
@@ -180,8 +188,8 @@ function initializeDisplay() {
         .selectAll("line")
         .data(graph.links)
         .enter().append("line")
-        .attr("marker-start", d => d["link_style"] == 3 ? "url(#arrow-start)" : "none")
-        .attr("marker-end", "url(#arrow-end)");
+    // .attr("marker-start", d => d["link_style"] == 3 ? "url(#arrow-start)" : "none")
+    // .attr("marker-end", "url(#arrow-end)");
 
     // set the data and properties of node circles
     node = svg.append("g")
@@ -189,22 +197,23 @@ function initializeDisplay() {
         .selectAll("circle")
         .data(graph.nodes)
         .enter()
-        .append("g")        
+        .append("g")
         .call(d3.drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended));
-    
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended))
+        .on("click", highlightNode);
+
     node.append("circle")
 
     // 在节点上添加文本元素
     node.append("text")
-        .attr("fill", "#fff")
+        .attr("fill", "#2e65b5")
         .style('text-anchor', 'middle')
         .style("dominant-baseline", "middle")
-        .style("font-size", "8px")
+        .style("font-size", "4px")
         .text(d => d.as_name)
-    
+
     // node tooltip
     node.append("title")
         .text(function (d) { return d.as_id; });
@@ -216,8 +225,6 @@ function initializeDisplay() {
 function updateDisplay() {
     node.selectAll("circle")
         .attr("r", forceProperties.collide.radius)
-        // .attr("stroke", forceProperties.charge.strength > 0 ? "black" : "white")
-        // .attr("stroke-width", forceProperties.charge.enabled == false ? 0 : Math.abs(forceProperties.charge.strength) / 15);
 
     link
         .attr("stroke-width", forceProperties.link.enabled ? 1 : .5)
@@ -244,7 +251,46 @@ function ticked() {
 
 
 //////////// UI EVENTS ////////////
+function highlightNode(no) {
+    let selectedNode = d3.select(this),
+        selectedId = selectedNode.select('circle').datum().as_id;
+    // 再次点击，取消高亮，隐藏标签
+    if (selectedNode.classed("selected")) {
+        d3.select('#show').classed("hidden", true)
+        // d3.select(this).classed("selected", false);
+        selectedNode.classed("selected", false);
+        
+        // node.selectAll('circle').style("opacity", 1)
+        link.classed("link-highlight", false)
+        link.classed("link-blur", false)
 
+    } else {
+        d3.select('#show').classed("hidden", false)
+        // node.selectAll('circle').style("opacity",
+        //     d =>
+        //         hasLink.has(selectedId + "," + d.as_id) ||
+        //             hasLink.has(d.as_id + "," + selectedId) ? 1 : 0.1
+        // );
+        // selectedNode.style("opacity", 1);
+        node.classed("selected", false)
+        d3.select(this).classed("selected", true);
+
+
+        // link.attr("class", l => l.source === no || l.target === no ? "link-highlight" : "link-blur"
+        // );
+
+        //获取被选中元素的名字
+        var name = no.as_name;
+
+        //设置#info h4样式的颜色为该节点的颜色，文本为该节点name    
+        d3.select('#info h3').text(name);
+        d3.select('#info #asId').text(selectedId);
+        d3.select('#info #innerNodes').text(no.nodes.length);
+    }
+
+
+
+}
 function dragstarted(d) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;

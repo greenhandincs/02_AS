@@ -1,0 +1,200 @@
+{
+    "as_groups": [
+      {
+        "as_id": "AS1",
+        "as_name": "AS1",
+        "nodes": [
+          {
+            "id": "AS1",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      },
+      {
+        "as_id": "AS2",
+        "as_name": "AS2",
+        "nodes": [
+          {
+            "id": "AS2",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      },
+      {
+        "as_id": "AS3",
+        "as_name": "AS3",
+        "nodes": [
+          {
+            "id": "AS3",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      },
+      {
+        "as_id": "AS4",
+        "as_name": "AS4",
+        "nodes": [
+          {
+            "id": "AS4",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      },
+      {
+        "as_id": "AS5",
+        "as_name": "AS5",
+        "nodes": [
+          {
+            "id": "AS5",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      },
+      {
+        "as_id": "AS6",
+        "as_name": "AS6",
+        "nodes": [
+          {
+            "id": "AS6",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      },
+      {
+        "as_id": "AS7",
+        "as_name": "AS7",
+        "nodes": [
+          {
+            "id": "AS7",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      },
+      {
+        "as_id": "AS8",
+        "as_name": "AS8",
+        "nodes": [
+          {
+            "id": "AS8",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      },
+      {
+        "as_id": "AS9",
+        "as_name": "AS9",
+        "nodes": [
+          {
+            "id": "AS9",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      },
+      {
+        "as_id": "AS10",
+        "as_name": "AS10",
+        "nodes": [
+          {
+            "id": "AS10",
+            "node_class": 1,
+            "level_code": 1
+          }
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "source_id": "AS7",
+        "target_id": "AS1",
+        "link_style": 1,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS1",
+        "target_id": "AS5",
+        "link_style": 1,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS1",
+        "target_id": "AS3",
+        "link_style": 1,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS5",
+        "target_id": "AS7",
+        "link_style": 1,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS3",
+        "target_id": "AS5",
+        "link_style": 3,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS3",
+        "target_id": "AS9",
+        "link_style": 3,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS2",
+        "target_id": "AS4",
+        "link_style": 3,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS6",
+        "target_id": "AS2",
+        "link_style": 3,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS4",
+        "target_id": "AS6",
+        "link_style": 3,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS8",
+        "target_id": "AS10",
+        "link_style": 3,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS2",
+        "target_id": "AS10",
+        "link_style": 3,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS10",
+        "target_id": "AS6",
+        "link_style": 3,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS6",
+        "target_id": "AS8",
+        "link_style": 3,
+        "level_code": 2
+      },
+      {
+        "source_id": "AS1",
+        "target_id": "AS7",
+        "link_style": 3,
+        "level_code": 2
+      }
+    ]
+  }

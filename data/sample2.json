@@ -3,102 +3,222 @@
     {
       "as_id": "AS1",
       "as_name": "AS1",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS1",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS2",
       "as_name": "AS2",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS2",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS3",
       "as_name": "AS3",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS3",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS4",
       "as_name": "AS4",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS4",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS5",
       "as_name": "AS5",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS5",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS6",
       "as_name": "AS6",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS6",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS7",
       "as_name": "AS7",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS7",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS8",
       "as_name": "AS8",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS8",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS9",
       "as_name": "AS9",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS9",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS10",
       "as_name": "AS10",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS10",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS11",
       "as_name": "AS11",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS11",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS12",
       "as_name": "AS12",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS12",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS13",
       "as_name": "AS13",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS13",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS14",
       "as_name": "AS14",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS14",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS15",
       "as_name": "AS15",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS15",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS16",
       "as_name": "AS16",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS16",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS17",
       "as_name": "AS17",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS17",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS18",
       "as_name": "AS18",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS18",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS19",
       "as_name": "AS19",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS19",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS20",
       "as_name": "AS20",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS20",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     }
   ],
   "edges": [

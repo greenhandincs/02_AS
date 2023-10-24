@@ -3,52 +3,112 @@
     {
       "as_id": "AS1",
       "as_name": "AS1",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS1",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS2",
       "as_name": "AS2",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS2",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS3",
       "as_name": "AS3",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS3",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS4",
       "as_name": "AS4",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS4",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS5",
       "as_name": "AS5",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS5",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS6",
       "as_name": "AS6",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS6",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS7",
       "as_name": "AS7",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS7",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS8",
       "as_name": "AS8",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS8",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS9",
       "as_name": "AS9",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS9",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     },
     {
       "as_id": "AS10",
       "as_name": "AS10",
-      "nodes": []
+      "nodes": [
+        {
+          "id": "AS10",
+          "node_class": 1,
+          "level_code": 1
+        }
+      ]
     }
   ],
   "edges": [

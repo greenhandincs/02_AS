@@ -19,7 +19,7 @@
     <script>
         //Original data
         var force
-        d3.json("/data/sample.json").then(data => {
+        d3.json("/data/sample6.json").then(data => {
             const w = 1000, h = 1000;
             const r = 10
 
@@ -66,9 +66,9 @@
 
 
             force.force("charge")
-                .strength(-1000)
+                .strength(-800)
                 .distanceMin(100)
-                .distanceMax(200);
+                .distanceMax(800);
 
 
 
