@@ -10,12 +10,10 @@ var graph;
 var hasLink = new Set();
 
 // load the data
-// miserables.json
-d3.json("../data/sample6.json", function (error, _graph) {
-    if (error) throw error;
+d3.json("../data/sample6.json").then(_graph => {
     graph = _graph;
-    let dataset = graph
-    let getByNodeId = new Map()
+    let dataset = graph,
+        getByNodeId = new Map();
     dataset.as_groups.forEach(as => {
         if (as.nodes) {
             as.nodes.forEach(node => {
@@ -23,14 +21,12 @@ d3.json("../data/sample6.json", function (error, _graph) {
             })
         }
     })
-
     console.log(getByNodeId);
 
     // 将每个边对象转换为d3.js所需的格式            
-    let edgesData = [];
+    let edgesData = [],
+        degree = {};
     dataset.edges.forEach(function (edge) {
-        // let s = edge.source_id,
-        //     t = edge.target_id
         let s = getByNodeId.get(edge.source),
             t = getByNodeId.get(edge.target)
         let key = s + "," + t
@@ -40,11 +36,13 @@ d3.json("../data/sample6.json", function (error, _graph) {
                     source: s,
                     target: t
                 })
+                degree[s] = (degree[s] || 0) + 1;
+                degree[t] = (degree[t] || 0) + 1;
             }
-
             hasLink.add(key)
         }
     });
+    console.log(degree);
     graph.nodes = graph.as_groups
     graph.links = edgesData
     console.log(graph);
@@ -54,19 +52,9 @@ d3.json("../data/sample6.json", function (error, _graph) {
 
 
 
-//////////// FORCE SIMULATION //////////// 
+//////////// 力导引模拟 //////////// 
 
-// force simulator
-var simulation = d3.forceSimulation();
-
-// set up the simulation and event to update locations after each tick
-function initializeSimulation() {
-    simulation.nodes(graph.nodes);
-    initializeForces();
-    simulation.on("tick", ticked);
-}
-
-// values for all forces
+// 定义力导引模拟中可能用到的参数
 forceProperties = {
     center: {
         x: 0.5,
@@ -86,7 +74,7 @@ forceProperties = {
     },
     forceX: {
         enabled: true,
-        strength: .1,
+        strength: .01,
         x: .5
     },
     forceY: {
@@ -101,10 +89,13 @@ forceProperties = {
     }
 }
 
-// add forces to the simulation
-function initializeForces() {
-    // add forces and associate each with a name
+// 定义力导引模拟
+var simulation = d3.forceSimulation();
+
+// 初始化力仿真
+function initializeSimulation() {    
     simulation
+        .nodes(graph.nodes)
         .force("link", d3.forceLink())
         .force("charge", d3.forceManyBody())
         .force("collide", d3.forceCollide())
@@ -113,8 +104,9 @@ function initializeForces() {
         .force("forceY", d3.forceY());
     simulation.alpha(0.7)
     simulation.velocityDecay(0.6);
-    // apply properties to each of the forces
+    
     updateForces();
+    simulation.on("tick", ticked);
 }
 
 // apply new force properties
@@ -131,12 +123,12 @@ function updateForces() {
         .strength(forceProperties.collide.strength * forceProperties.collide.enabled)
         .radius(forceProperties.collide.radius)
         .iterations(forceProperties.collide.iterations);
-    // simulation.force("forceX")
-    //     .strength(forceProperties.forceX.strength * forceProperties.forceX.enabled)
-    //     .x(width * forceProperties.forceX.x);
-    // simulation.force("forceY")
-    //     .strength(forceProperties.forceY.strength * forceProperties.forceY.enabled)
-    //     .y(height * forceProperties.forceY.y);
+    simulation.force("forceX")
+        .strength(forceProperties.forceX.strength * forceProperties.forceX.enabled)
+        .x(width / 2);
+    simulation.force("forceY")
+        .strength(forceProperties.forceY.strength * forceProperties.forceY.enabled)
+        .y(height / 2);
     simulation.force("link")
         .id(function (d) { return d.as_id; })
         // .distance(forceProperties.link.distance)
@@ -155,32 +147,6 @@ function updateForces() {
 // generate the svg objects and force simulation
 function initializeDisplay() {
     let r = forceProperties.collide.radius
-    // 在SVG中创建两个箭头标记
-    svg.append("defs")
-        .append("marker")
-        .attr("id", "arrow-end")
-        .attr("viewBox", "0 -3 6 6")
-        .attr("refX", r + 6)
-        .attr("refY", 0)
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6)
-        .attr("orient", "auto")
-        .attr("fill", "#aaa")
-        .append("path")
-        .attr("d", "M0,-3L6,0L0,3");
-
-    svg.append("defs")
-        .append("marker")
-        .attr("id", "arrow-start")
-        .attr("viewBox", "0 -3 6 6")
-        .attr("refX", -r / 2)
-        .attr("refY", 0)
-        .attr("markerWidth", 4)
-        .attr("markerHeight", 4)
-        .attr("orient", "auto")
-        .attr("fill", "blue")
-        .append("path")
-        .attr("d", "M6,-3L0,0L6,3");
 
     // set the data and properties of link lines
     link = svg.append("g")
@@ -188,8 +154,6 @@ function initializeDisplay() {
         .selectAll("line")
         .data(graph.links)
         .enter().append("line")
-    // .attr("marker-start", d => d["link_style"] == 3 ? "url(#arrow-start)" : "none")
-    // .attr("marker-end", "url(#arrow-end)");
 
     // set the data and properties of node circles
     node = svg.append("g")
@@ -242,16 +206,12 @@ function ticked() {
     node
         .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
 
-    // node
-    //     .attr("cx", function (d) { return d.x; })
-    //     .attr("cy", function (d) { return d.y; });    
-    d3.select('#alpha_value').style('flex-basis', (simulation.alpha() * 100) + '%');
 }
 
 
 
 //////////// UI EVENTS ////////////
-function highlightNode(no) {
+function highlightNode() {
     let selectedNode = d3.select(this),
         selectedId = selectedNode.select('circle').datum().as_id;
     // 再次点击，取消高亮，隐藏标签
@@ -259,27 +219,19 @@ function highlightNode(no) {
         d3.select('#show').classed("hidden", true)
         // d3.select(this).classed("selected", false);
         selectedNode.classed("selected", false);
-        
+
         // node.selectAll('circle').style("opacity", 1)
         link.classed("link-highlight", false)
         link.classed("link-blur", false)
 
     } else {
         d3.select('#show').classed("hidden", false)
-        // node.selectAll('circle').style("opacity",
-        //     d =>
-        //         hasLink.has(selectedId + "," + d.as_id) ||
-        //             hasLink.has(d.as_id + "," + selectedId) ? 1 : 0.1
-        // );
-        // selectedNode.style("opacity", 1);
         node.classed("selected", false)
         d3.select(this).classed("selected", true);
 
-
-        // link.attr("class", l => l.source === no || l.target === no ? "link-highlight" : "link-blur"
-        // );
-
+        // console.log(no);
         //获取被选中元素的名字
+        let no = selectedNode.select('circle').datum()
         var name = no.as_name;
 
         //设置#info h4样式的颜色为该节点的颜色，文本为该节点name    
@@ -291,19 +243,19 @@ function highlightNode(no) {
 
 
 }
-function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+function dragstarted(event, d) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
     d.fy = d.y;
 }
 
-function dragged(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
+function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
 }
 
-function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.0001);
+function dragended(event, d) {
+    if (!event.active) simulation.alphaTarget(0.0001);
     d.fx = null;
     d.fy = null;
 }
