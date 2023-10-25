@@ -34,15 +34,9 @@
     }
 
     .nodes text {
-      fill:#6C8EBF
-      /* fill:#D6B656 */
+      fill:#6C8EBF      
     }
-    .nodes circle {
-      pointer-events: all;
-      /* fill: #FFF2CC;
-      stroke: #D6B656;
-      fill: #F8CECC ;
-      stroke: #B85450; */
+    .nodes circle {      
       stroke-width: .5px;
       fill: #DAE8FC;
       stroke: #6C8EBF;     
@@ -53,28 +47,21 @@
       stroke-width: 2px !important;      
     }
 
-    .selected text {
-      
-
-    }
-
-    #graph {
-      /* min-width: 50%;       */
+    #graph {      
       min-width: 80%;
     }
 
     #info {
-      display: inline-block;
       width: 18%;
+      /* display: inline-block; */
       /* box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);; */
     }
 
     #info h3 {
-      color: #9467bd;
+      color: #6C8EBF;
     }
 
-    .info-entry .label {
-      /* font-size: 12px; */
+    .info-entry .label {      
       font-weight: 500;
       color: #aaa;
     }
@@ -114,7 +101,7 @@
       <svg width="100%" height="800"></svg>
     </div>
 
-    <!-- 绘制右边显示结果 -->
+    <!-- 绘制标签（初始时隐藏） -->
     <div id="info" style="margin-top: 10%;">
       <div id="show" class="hidden">
         <h3>AS1</h3>
